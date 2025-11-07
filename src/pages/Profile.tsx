@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Camera, MapPin, Calendar, Users, Mail, Edit } from 'lucide-react'
+import { MapPin, Calendar, Users, Mail, Edit } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -83,7 +83,7 @@ export default function Profile() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
-                  {userStats.map((stat, index) => (
+                  {userStats.map((stat) => (
                     <div key={stat.label} className="text-center p-4 bg-gray-50 rounded-lg">
                       <div className="text-2xl font-bold text-blue-600 mb-1">{stat.value}</div>
                       <div className="text-xs text-gray-600">{stat.label}</div>

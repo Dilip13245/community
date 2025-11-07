@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Calendar, MapPin, Clock, Users, DollarSign, ArrowLeft, Share2, CheckCircle } from 'lucide-react'
+import { Calendar, MapPin, Clock, Users, ArrowLeft, Share2, CheckCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 

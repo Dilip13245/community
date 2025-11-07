@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Shield, CheckCircle, XCircle, AlertTriangle, ArrowLeft, Eye } from 'lucide-react'
+import { Shield, CheckCircle, XCircle, ArrowLeft, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -52,7 +52,7 @@ const moderationItems = [
 export default function AdminModeration() {
   const [items, setItems] = useState(moderationItems)
 
-  const handleAction = (id: number, action: 'approve' | 'reject') => {
+  const handleAction = (id: number, _action: 'approve' | 'reject') => {
     setItems(items.filter(item => item.id !== id))
   }
 

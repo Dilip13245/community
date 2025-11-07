@@ -3,10 +3,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Save, Bell, Shield, CreditCard, Globe } from 'lucide-react'
+import { Save, Bell, Shield, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 
-const settingsSections = [
+interface SettingField {
+  label: string
+  type: string
+  placeholder?: string
+  value?: string
+  checked?: boolean
+}
+
+interface SettingSection {
+  id: string
+  title: string
+  icon: React.ComponentType<{ className?: string }>
+  fields: SettingField[]
+}
+
+const settingsSections: SettingSection[] = [
   {
     id: 'profile',
     title: 'Profile Settings',

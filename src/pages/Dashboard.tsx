@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Navbar } from '@/components/navbar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Users, Calendar, TrendingUp, DollarSign, Plus, MessageCircle, MapPin, ArrowRight } from 'lucide-react'
+import { Users, Calendar, TrendingUp, DollarSign, Plus, MessageCircle, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const stats = [

@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Users, Calendar, MapPin, MessageCircle, Settings, Share2, ArrowLeft, Trophy, TrendingUp } from 'lucide-react'
+import { Users, Calendar, MapPin, Settings, Share2, ArrowLeft, Trophy, TrendingUp } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
