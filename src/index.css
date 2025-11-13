@@ -71,18 +71,6 @@
   @apply bg-gray-900/10 backdrop-blur-xl border border-gray-800/20;
 }
 
-/* Scroll Progress Bar - Gradient to match scrollbar */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
-  z-index: 9999;
-  transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
-}
 
 /* Beautiful Card Hover Effects */
 .card-hover {
@@ -128,7 +116,7 @@ html.lenis {
   pointer-events: none;
 }
 
-/* Custom Scrollbar - Consistent with scroll progress */
+/* Custom Scrollbar - Consistent with scroll progress bar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -150,9 +138,19 @@ html.lenis {
   background-clip: padding-box;
 }
 
-/* Firefox scrollbar */
+/* Firefox scrollbar - matches the gradient theme */
 * {
   scrollbar-width: thin;
   scrollbar-color: #2563eb #f3f4f6;
 }
 
+/* Smooth scroll behavior for native scroll (fallback) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better scroll performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
