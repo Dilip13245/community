@@ -10,13 +10,26 @@ export function Navbar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const location = useLocation()
   
+  // Determine current panel based on route
+  const isBasic = !location.pathname.startsWith('/creators') && 
+                  !location.pathname.startsWith('/users') &&
+                  !location.pathname.startsWith('/admin') &&
+                  !location.pathname.startsWith('/dashboard') && 
+                  !location.pathname.startsWith('/profile') && 
+                  !location.pathname.startsWith('/settings') &&
+                  !location.pathname.startsWith('/communities') &&
+                  !location.pathname.startsWith('/events')
+  const isAdmin = location.pathname.startsWith('/admin')
+  const isCreator = location.pathname.startsWith('/creators')
+  const isUser = location.pathname.startsWith('/users')
+  
   // TODO: Replace with actual auth state
-  const isLoggedIn = location.pathname.startsWith('/dashboard') || 
+  const isLoggedIn = isCreator || isUser || isAdmin ||
+                     location.pathname.startsWith('/dashboard') || 
                      location.pathname.startsWith('/profile') || 
                      location.pathname.startsWith('/settings') ||
                      location.pathname.startsWith('/communities') ||
                      location.pathname.startsWith('/events')
-  const isAdmin = location.pathname.startsWith('/admin')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,25 +74,28 @@ export function Navbar() {
   const mainNavLinks = [
     { path: '/', label: 'Home', icon: Home },
     { path: '/discover', label: 'Discover', icon: Compass },
-    { path: '/communities', label: 'Communities', icon: Users },
-    { path: '/events', label: 'Events', icon: Calendar },
-    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/pricing', label: 'Pricing', icon: DollarSign },
-    { path: '/admin', label: 'Admin', icon: Shield },
   ]
 
-  // User-specific links
+  // Creator navigation links
+  const creatorNavLinks = [
+    { path: '/creators/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { path: '/creators/communities', label: 'My Communities', icon: Users },
+    { path: '/creators/events', label: 'My Events', icon: Calendar },
+  ]
+
+  // User navigation links
   const userNavLinks = [
-    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { path: '/profile', label: 'Profile', icon: User },
-    { path: '/settings', label: 'Settings', icon: Settings },
+    { path: '/users/profile', label: 'Profile', icon: User },
+    { path: '/users/settings', label: 'Settings', icon: Settings },
   ]
 
-  // Admin links
+  // Admin navigation links
   const adminNavLinks = [
     { path: '/admin', label: 'Admin Dashboard', icon: Shield },
     { path: '/admin/moderation', label: 'Moderation', icon: Shield },
   ]
+
 
   const isActive = (path: string) => {
     if (path === '/') {
@@ -111,9 +127,100 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation - All Main Routes */}
+          {/* Desktop Navigation - Panel-specific */}
           <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center max-w-2xl mx-8">
-            {mainNavLinks.map((link) => {
+            {/* Basic/Public Links - Only show on basic pages */}
+            {isBasic && mainNavLinks.map((link) => {
+              const Icon = link.icon
+              const active = isActive(link.path)
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="relative px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+                >
+                  <span className={`relative z-10 flex items-center gap-1.5 ${
+                    active
+                      ? 'text-blue-600'
+                      : 'text-gray-700 hover:text-gray-900'
+                  }`}>
+                    <Icon className="h-4 w-4" />
+                    {link.label}
+                  </span>
+                  {active && (
+                    <motion.div
+                      layoutId="navbar-active"
+                      className="absolute inset-0 bg-blue-50 rounded-lg"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              )
+            })}
+            
+            {/* Creator Links - Only show on creator pages */}
+            {isCreator && creatorNavLinks.map((link) => {
+              const Icon = link.icon
+              const active = isActive(link.path)
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="relative px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+                >
+                  <span className={`relative z-10 flex items-center gap-1.5 ${
+                    active
+                      ? 'text-blue-600'
+                      : 'text-gray-700 hover:text-gray-900'
+                  }`}>
+                    <Icon className="h-4 w-4" />
+                    {link.label}
+                  </span>
+                  {active && (
+                    <motion.div
+                      layoutId="navbar-active"
+                      className="absolute inset-0 bg-blue-50 rounded-lg"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              )
+            })}
+            
+            {/* User Links - Only show on user pages */}
+            {isUser && userNavLinks.map((link) => {
+              const Icon = link.icon
+              const active = isActive(link.path)
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="relative px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+                >
+                  <span className={`relative z-10 flex items-center gap-1.5 ${
+                    active
+                      ? 'text-blue-600'
+                      : 'text-gray-700 hover:text-gray-900'
+                  }`}>
+                    <Icon className="h-4 w-4" />
+                    {link.label}
+                  </span>
+                  {active && (
+                    <motion.div
+                      layoutId="navbar-active"
+                      className="absolute inset-0 bg-blue-50 rounded-lg"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              )
+            })}
+            
+            {/* Admin Links - Only show on admin pages */}
+            {isAdmin && adminNavLinks.map((link) => {
               const Icon = link.icon
               const active = isActive(link.path)
               return (
@@ -179,7 +286,8 @@ export function Navbar() {
                       exit={{ opacity: 0, y: -10 }}
                       className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border-2 border-gray-200 py-2 z-50"
                     >
-                      {userNavLinks.map((link) => {
+                      {/* Only show panel-specific links in dropdown */}
+                      {isCreator && creatorNavLinks.map((link) => {
                         const Icon = link.icon
                         return (
                           <Link
@@ -195,16 +303,38 @@ export function Navbar() {
                           </Link>
                         )
                       })}
-                      {!isAdmin && (
-                        <Link
-                          to="/admin"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 text-sm"
-                        >
-                          <Shield className="h-4 w-4" />
-                          Admin Panel
-                        </Link>
-                      )}
+                      {isUser && userNavLinks.map((link) => {
+                        const Icon = link.icon
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setUserMenuOpen(false)}
+                            className={`flex items-center gap-3 px-4 py-2 hover:bg-gray-50 text-sm ${
+                              isActive(link.path) ? 'text-blue-600 bg-blue-50' : ''
+                            }`}
+                          >
+                            <Icon className="h-4 w-4" />
+                            {link.label}
+                          </Link>
+                        )
+                      })}
+                      {isAdmin && adminNavLinks.map((link) => {
+                        const Icon = link.icon
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setUserMenuOpen(false)}
+                            className={`flex items-center gap-3 px-4 py-2 hover:bg-gray-50 text-sm ${
+                              isActive(link.path) ? 'text-blue-600 bg-blue-50' : ''
+                            }`}
+                          >
+                            <Icon className="h-4 w-4" />
+                            {link.label}
+                          </Link>
+                        )
+                      })}
                       <div className="border-t my-2" />
                       <Link
                         to="/"
@@ -266,92 +396,116 @@ export function Navbar() {
                 style={{ maxHeight: 'calc(100vh - 3.5rem)' }}
               >
                 <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 3.5rem)' }}>
-                  {/* Main Navigation Links */}
-                  <div className="py-2">
-                    <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      Main Menu
-                    </div>
-                    {mainNavLinks.map((link) => {
-                      const Icon = link.icon
-                      const active = isActive(link.path)
-                      return (
-                        <Link
-                          key={link.path}
-                          to={link.path}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
-                            active
-                              ? 'bg-blue-50 text-blue-600'
-                              : 'text-gray-700 hover:bg-gray-50'
-                          }`}
-                        >
-                          <Icon className="h-5 w-5 flex-shrink-0" />
-                          <span>{link.label}</span>
-                        </Link>
-                      )
-                    })}
-                  </div>
-
-                  {/* User Links (if logged in) - Only show if not already in main nav */}
-                  {isLoggedIn && (
-                    <>
-                      <div className="border-t border-gray-200 my-2" />
-                      <div className="py-2">
-                        <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                          Account
-                        </div>
-                        {userNavLinks.filter(link => !mainNavLinks.some(mainLink => mainLink.path === link.path)).map((link) => {
-                          const Icon = link.icon
-                          const active = isActive(link.path)
-                          return (
-                            <Link
-                              key={link.path}
-                              to={link.path}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
-                                active
-                                  ? 'bg-blue-50 text-blue-600'
-                                  : 'text-gray-700 hover:bg-gray-50'
-                              }`}
-                            >
-                              <Icon className="h-5 w-5 flex-shrink-0" />
-                              <span>{link.label}</span>
-                            </Link>
-                          )
-                        })}
+                  {/* Basic/Public Navigation Links - Only show on basic pages */}
+                  {isBasic && (
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Main Menu
                       </div>
-                    </>
+                      {mainNavLinks.map((link) => {
+                        const Icon = link.icon
+                        const active = isActive(link.path)
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
+                              active
+                                ? 'bg-blue-50 text-blue-600'
+                                : 'text-gray-700 hover:bg-gray-50'
+                            }`}
+                          >
+                            <Icon className="h-5 w-5 flex-shrink-0" />
+                            <span>{link.label}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
                   )}
 
-                  {/* Admin Links (if admin) - Only show if not already in main nav */}
-                  {isAdmin && (
-                    <>
-                      <div className="border-t border-gray-200 my-2" />
-                      <div className="py-2">
-                        <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                          Admin Tools
-                        </div>
-                        {adminNavLinks.filter(link => !mainNavLinks.some(mainLink => mainLink.path === link.path)).map((link) => {
-                          const Icon = link.icon
-                          const active = isActive(link.path)
-                          return (
-                            <Link
-                              key={link.path}
-                              to={link.path}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
-                                active
-                                  ? 'bg-blue-50 text-blue-600'
-                                  : 'text-gray-700 hover:bg-gray-50'
-                              }`}
-                            >
-                              <Icon className="h-5 w-5 flex-shrink-0" />
-                              <span>{link.label}</span>
-                            </Link>
-                          )
-                        })}
+                  {/* Creator Links - Only show on creator pages */}
+                  {isCreator && (
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Creator Tools
                       </div>
-                    </>
+                      {creatorNavLinks.map((link) => {
+                        const Icon = link.icon
+                        const active = isActive(link.path)
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
+                              active
+                                ? 'bg-blue-50 text-blue-600'
+                                : 'text-gray-700 hover:bg-gray-50'
+                            }`}
+                          >
+                            <Icon className="h-5 w-5 flex-shrink-0" />
+                            <span>{link.label}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+
+                  {/* User Links - Only show on user pages */}
+                  {isUser && (
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Account
+                      </div>
+                      {userNavLinks.map((link) => {
+                        const Icon = link.icon
+                        const active = isActive(link.path)
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
+                              active
+                                ? 'bg-blue-50 text-blue-600'
+                                : 'text-gray-700 hover:bg-gray-50'
+                            }`}
+                          >
+                            <Icon className="h-5 w-5 flex-shrink-0" />
+                            <span>{link.label}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+
+                  {/* Admin Links - Only show on admin pages */}
+                  {isAdmin && (
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Admin Tools
+                      </div>
+                      {adminNavLinks.map((link) => {
+                        const Icon = link.icon
+                        const active = isActive(link.path)
+                        return (
+                          <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-sm font-medium transition-colors ${
+                              active
+                                ? 'bg-blue-50 text-blue-600'
+                                : 'text-gray-700 hover:bg-gray-50'
+                            }`}
+                          >
+                            <Icon className="h-5 w-5 flex-shrink-0" />
+                            <span>{link.label}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
                   )}
 
                   {/* Action Buttons */}

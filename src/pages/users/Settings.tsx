@@ -60,20 +60,71 @@ const settingsSections: SettingSection[] = [
 
 export default function Settings() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20 lg:pb-24 max-w-4xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-gray-900">
-            Settings
-          </h1>
-          <p className="text-xl text-gray-600">Manage your account settings and preferences</p>
-        </motion.div>
+      
+      {/* Hero Section */}
+      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden bg-blue-900 pt-20 sm:pt-24">
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <svg className="absolute inset-0 w-full h-full opacity-15" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="settingsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 0.8 }} />
+                <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 0.8 }} />
+              </linearGradient>
+            </defs>
+            <circle cx="25%" cy="30%" r="55" fill="none" stroke="url(#settingsGrad)" strokeWidth="2" opacity="0.4">
+              <animate attributeName="r" values="55;65;55" dur="6s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="75%" cy="70%" r="45" fill="none" stroke="url(#settingsGrad)" strokeWidth="2" opacity="0.4">
+              <animate attributeName="r" values="45;55;45" dur="5.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5.5s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+          
+          {/* Floating Icons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.12, y: 0 }}
+            transition={{ duration: 2 }}
+            className="hidden md:block absolute top-[22%] left-[12%]"
+          >
+            <Shield className="w-12 h-12 md:w-16 md:h-16 text-blue-400 animate-float" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.1, scale: 1 }}
+            transition={{ duration: 2, delay: 0.7 }}
+            className="hidden lg:block absolute bottom-[28%] right-[18%]"
+          >
+            <Bell className="w-20 h-20 lg:w-24 lg:h-24 text-blue-400 animate-float" />
+          </motion.div>
+        </div>
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 py-12 sm:py-16 md:py-20">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-2 md:mb-3 leading-tight">
+                Settings
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed">
+                Manage your account settings and preferences
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 sm:px-6 pb-12 sm:pb-16 md:pb-20 lg:pb-24 max-w-4xl -mt-8 relative z-10">
 
         {/* Settings Sections */}
         <div className="space-y-6">
@@ -83,8 +134,9 @@ export default function Settings() {
               <motion.div
                 key={section.id}
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: sectionIndex * 0.1 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: sectionIndex * 0.1, duration: 0.5 }}
               >
                 <Card className="border-2 border-gray-200 shadow-lg">
                   <CardHeader>

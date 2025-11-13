@@ -82,45 +82,104 @@ const categories = [
 
 export default function Discover() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20 lg:pb-24 max-w-7xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-gray-900">
-            Discover
-            <br />
-            <span className="text-blue-600">Communities</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl">
-            Find communities that match your interests. From local meetups to global movements.
-          </p>
-        </motion.div>
+      
+      {/* Hero Section */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-blue-900 pt-20 sm:pt-24">
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <svg className="absolute inset-0 w-full h-full opacity-15" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="discoverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 0.8 }} />
+                <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 0.8 }} />
+              </linearGradient>
+            </defs>
+            <circle cx="20%" cy="30%" r="60" fill="none" stroke="url(#discoverGrad)" strokeWidth="2" opacity="0.4">
+              <animate attributeName="r" values="60;70;60" dur="6s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="80%" cy="70%" r="50" fill="none" stroke="url(#discoverGrad)" strokeWidth="2" opacity="0.4">
+              <animate attributeName="r" values="50;60;50" dur="5.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5.5s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+          
+          {/* Floating Icons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.15, y: 0 }}
+            transition={{ duration: 2 }}
+            className="hidden md:block absolute top-[15%] left-[10%]"
+          >
+            <MapPin className="w-12 h-12 md:w-16 md:h-16 text-blue-400 animate-float" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.1, scale: 1 }}
+            transition={{ duration: 2, delay: 0.5 }}
+            className="hidden lg:block absolute top-[30%] right-[15%]"
+          >
+            <Users className="w-20 h-20 lg:w-24 lg:h-24 text-blue-400 animate-float" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.1 }}
+            transition={{ duration: 2, delay: 1 }}
+            className="hidden md:block absolute bottom-[20%] left-[8%]"
+          >
+            <Calendar className="w-14 h-14 md:w-18 md:h-18 text-blue-300 animate-float" />
+          </motion.div>
+        </div>
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 py-12 sm:py-16 md:py-20">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-3 md:mb-4 leading-tight">
+                Discover
+                <br />
+                <span className="text-blue-200">Communities</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed max-w-3xl mx-auto">
+                Find communities that match your interests. From local meetups to global movements.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 sm:px-6 pb-12 sm:pb-16 md:pb-20 lg:pb-24 max-w-7xl -mt-8 relative z-10">
 
         {/* Search and Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ delay: 0.1, duration: 0.6 }}
           className="mb-12"
         >
           <Card className="border-2 border-gray-200 shadow-lg">
-            <CardContent className="p-6">
-              <div className="grid md:grid-cols-4 gap-4">
-                <div className="md:col-span-2">
+            <CardContent className="p-4 sm:p-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="sm:col-span-2 lg:col-span-2">
                   <label className="text-sm font-medium mb-2 block text-gray-700">Search</label>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input placeholder="Search communities, events, or locations..." className="pl-10" />
+                    <Input placeholder="Search communities, events, or locations..." className="pl-10 text-base" />
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-2 block text-gray-700">Location</label>
-                  <select className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                  <select className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-600">
                     <option>All Locations</option>
                     <option>Mumbai, India</option>
                     <option>Delhi, India</option>
@@ -132,7 +191,7 @@ export default function Discover() {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-2 block text-gray-700">Category</label>
-                  <select className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                  <select className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-600">
                     <option>All Categories</option>
                     <option>Sports & Fitness</option>
                     <option>Technology</option>
@@ -142,7 +201,7 @@ export default function Discover() {
                   </select>
                 </div>
               </div>
-              <Button variant="gradient" className="mt-4" size="lg">
+              <Button variant="gradient" className="mt-4 w-full sm:w-auto min-h-[44px]" size="lg">
                 <Filter className="mr-2 h-4 w-4" />
                 Apply Filters
               </Button>
@@ -153,20 +212,22 @@ export default function Discover() {
         {/* Categories Quick Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ delay: 0.2, duration: 0.6 }}
           className="mb-12"
         >
           <h2 className="text-2xl font-bold mb-4 text-gray-900">Browse by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 sm:gap-4">
             {categories.map((category, index) => {
               const Icon = category.icon
               return (
                 <motion.div
                   key={category.name}
                   initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.05 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: index * 0.05, duration: 0.5 }}
                   whileHover={{ scale: 1.05, y: -4 }}
                 >
                   <Card className="cursor-pointer border-2 border-transparent hover:border-blue-300 transition-all duration-300">
@@ -195,11 +256,12 @@ export default function Discover() {
               <motion.div
                 key={community.id}
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
                 whileHover={{ y: -8 }}
               >
-                <Link to={`/communities/${community.id}`}>
+                <Link to={`/users/communities/${community.id}`}>
                   <Card className="h-full border-2 border-transparent hover:border-blue-300 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden">
                     <div className="relative h-48 bg-gradient-to-br from-blue-500 to-blue-700 overflow-hidden">
                       <div className="absolute inset-0 flex items-center justify-center">

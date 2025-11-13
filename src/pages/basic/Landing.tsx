@@ -777,7 +777,7 @@ export default function Landing() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl py-12 sm:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
             {/* Brand Column */}
             <div className="lg:col-span-1">
               <Link to="/" className="flex items-center space-x-3 mb-4">
@@ -809,12 +809,12 @@ export default function Landing() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  <Link to="/creators/dashboard" className="text-gray-400 hover:text-white text-sm transition-colors">
                     Dashboard
                   </Link>
                 </li>
                 <li>
-                  <Link to="/community-create" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  <Link to="/creators/communities/create" className="text-gray-400 hover:text-white text-sm transition-colors">
                     Start Building
                   </Link>
                 </li>
@@ -831,12 +831,12 @@ export default function Landing() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/communities" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  <Link to="/creators/communities" className="text-gray-400 hover:text-white text-sm transition-colors">
                     Communities
                   </Link>
                 </li>
                 <li>
-                  <Link to="/events" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  <Link to="/creators/events" className="text-gray-400 hover:text-white text-sm transition-colors">
                     Events
                   </Link>
                 </li>
@@ -882,7 +882,7 @@ export default function Landing() {
               <div className="text-gray-400 text-sm">
                 © {new Date().getFullYear()} CommunityHub. All rights reserved.
               </div>
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                 <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
                   Privacy
                 </Link>

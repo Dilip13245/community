@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Check, ArrowRight } from 'lucide-react'
+import { Check, ArrowRight, DollarSign } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -65,24 +65,74 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20 lg:pb-24 max-w-7xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-gray-900">
-            Simple
-            <br />
-            <span className="text-blue-600">Pricing</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Start free, upgrade when you're ready to grow. No credit card required.
-          </p>
-        </motion.div>
+      
+      {/* Hero Section */}
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden bg-blue-900 pt-20 sm:pt-24">
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <svg className="absolute inset-0 w-full h-full opacity-15" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pricingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 0.8 }} />
+                <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 0.8 }} />
+              </linearGradient>
+            </defs>
+            <circle cx="30%" cy="30%" r="50" fill="none" stroke="url(#pricingGrad)" strokeWidth="2" opacity="0.4">
+              <animate attributeName="r" values="50;60;50" dur="6s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="70%" cy="70%" r="40" fill="none" stroke="url(#pricingGrad)" strokeWidth="2" opacity="0.4">
+              <animate attributeName="r" values="40;50;40" dur="5.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5.5s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+          
+          {/* Floating Icons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.12, y: 0 }}
+            transition={{ duration: 2 }}
+            className="hidden md:block absolute top-[22%] left-[15%]"
+          >
+            <DollarSign className="w-12 h-12 md:w-16 md:h-16 text-blue-400 animate-float" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.1, scale: 1 }}
+            transition={{ duration: 2, delay: 0.8 }}
+            className="hidden lg:block absolute bottom-[28%] right-[20%]"
+          >
+            <Check className="w-20 h-20 lg:w-24 lg:h-24 text-blue-400 animate-float" />
+          </motion.div>
+        </div>
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 py-12 sm:py-16 md:py-20">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-3 md:mb-4 leading-tight">
+                Simple
+                <br />
+                <span className="text-blue-200">Pricing</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed max-w-3xl mx-auto">
+                Start free, upgrade when you're ready to grow. No credit card required.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 sm:px-6 pb-12 sm:pb-16 md:pb-20 lg:pb-24 max-w-7xl -mt-8 relative z-10">
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
@@ -90,8 +140,9 @@ export default function Pricing() {
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -8 }}
             >
               <Card className={`h-full border-2 ${plan.featured ? 'border-blue-600 shadow-2xl' : 'border-gray-200 hover:border-blue-300'} transition-all duration-300`}>
@@ -138,8 +189,9 @@ export default function Pricing() {
         {/* FAQ Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ delay: 0.4, duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Frequently Asked Questions</h2>
