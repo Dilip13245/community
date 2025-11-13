@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Navbar } from '@/components/navbar'
 import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Users, Heart, Target, Zap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
